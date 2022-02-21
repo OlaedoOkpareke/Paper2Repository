@@ -1,0 +1,359 @@
+---
+title: "Millenial vs gen z births and change in attitudes of young mothers"
+output: html_document
+---
+heck if the data includes the borth years of the mothers, otherwise we cant know
+liberalis, causing lower borth?
+adoption of more freedom for women?
+abortion?
+women in workforce already still high
+miority women have high birth or just white women?
+Analysis by state
+Comapre borths from eaely 2000s to now
+Anyone born between 1978 and 1996 (ages 23 to 38 in 2019) is considered a Millennial, and anyone born from 1997 onward is part of a new
+Measuring error: the generations are highly arbitrary 
+what type of sampling was used? 10 samples from each state. what happened to non response?
+
+subset on age 15-19 and 20-24, as well as from 1980s onward.
+caption using all 51 states in america from year to year, put source for inner captions
+```{r}
+install.packages("usmap")
+library("tidyverse")
+library("haven")
+library("janitor")
+library("dplyr")
+library("usmap")
+```
+
+```{r}
+birth = read_csv("fig_1.csv")
+numbirth = read_csv("numbirths_2001_2019.csv")
+student_debt = read_dta("nyfed-student-debt-per-capita-0419.dta")
+rent = read_dta("longdiff-rentcost-0419.dta")
+religion = read_dta("long-diff-religion.dta")
+childcare = read_dta("child_care_costs_under12_0408_1519.dta")
+```
+STUFF FOR REPRODUCTION
+
+```{r}
+birth %>%
+  ggplot(data=., aes(x=year, y=brate_all))+
+  geom_line()+
+  theme_classic()+
+  ylim(50,80)
+
+```
+
+
+
+
+```{r}
+race = read_csv("figs_2a_2b.csv")
+```
+
+```{r}
+race %>%
+  select(-brate_whitenh, -brate_blacknh, -brate_hisp) %>%
+  pivot_longer(cols = c("brate_1519", "brate_2024", "brate_2529", "brate_3034", "brate_3539", "brate_4044"),
+               names_to = "group",
+               values_to = "value"
+               ) %>%
+  ggplot(mapping = aes(x = year, y = value, color = group)) +
+  geom_line() +
+  theme_classic() +
+  scale_x_continuous(breaks = seq(1980,2020,by = 5))+
+  scale_y_continuous(breaks = seq(0,140,by = 20))+
+  labs(x = " ",
+       y = " ",
+       color = " ") +
+  scale_color_brewer(palette = "Set1", labels = c("Age 15-19", "Age 20-24","Age 25-29","Age 30-34","Age 35-39", "Age 40-44")) +
+  theme(legend.position = "bottom")
+```
+
+```{r}
+race %>%
+  filter(year >= 1990)%>%
+  select(year, brate_whitenh, brate_blacknh, brate_hisp) %>%
+  pivot_longer(cols = c("brate_whitenh", "brate_blacknh", "brate_hisp"),
+               names_to = "racegroup",
+               values_to = "value"
+               ) %>%
+  ggplot(mapping = aes(x = year, y = value, color = racegroup)) +
+  geom_line() +
+  theme_classic() +
+  scale_x_continuous(breaks = seq(1990,2020,by = 5))+
+  ylim(0,140)+
+  labs(x = " ",
+       y = " ",
+       color = " ") +
+  scale_color_brewer(palette = "Set1", labels = c("Black, non-Hispanic", "Hispanic", " White, non-Hispanic")) +
+  theme(legend.position = "bottom")
+```
+
+
+STUFF FOR ACTUAL PROJECT
+
+does birth control reduce usage for young mothers?
+we dont expect income ratio to affect as these are young moms anyway.
+religious change, specially in bible belt?
+
+```{r}
+birth %>%
+  filter(year >= 1999) %>%
+  ggplot(data=., aes(x=year, y=brate_all))+
+  geom_line()+
+  theme_classic()+
+  ylim(50,80)
+```
+```{r}
+longdiff = read_dta("longdiff-RHS-1519.dta")
+```
+
+
+```{r}
+race %>%
+  select(year,brate_1519,brate_2024) %>%
+  filter(year >= 2000) %>%
+  pivot_longer(cols = c("brate_1519", "brate_2024"),
+               names_to = "group",
+               values_to = "value"
+               ) %>%
+  ggplot(mapping = aes(x = year, y = value, color = group)) +
+  geom_line() +
+  geom_point() +
+  theme_classic() +
+  scale_x_continuous(breaks = seq(1980,2020,by = 5))+
+  scale_y_continuous(breaks = seq(0,140,by = 20))+
+  labs(x = " ",
+       y = " ",
+       color = " ") +
+  scale_color_brewer(palette = "Set1", labels = c("Age 15-19", "Age 20-24")) +
+  theme(legend.position = "bottom")
+```
+```{r}
+race %>%
+  filter(year >= 2000) %>%
+  select(-brate_whitenh, -brate_blacknh, -brate_hisp) %>%
+  pivot_longer(cols = c("brate_1519", "brate_2024","brate_2529", "brate_3034", "brate_3539", "brate_4044"),
+               names_to = "group",
+               values_to = "value"
+               ) %>%
+  mutate(group = 
+           case_when(
+             group == "brate_1519" ~ "Ages 15 to 19",
+             group == "brate_2024" ~ "Ages 20 to 24",
+             TRUE ~ "Other Age groups"
+             ) # group scores into separate categories
+  ) %>%
+  ggplot(data=.)+
+  theme_minimal()+
+  geom_bar(mapping = aes(x = year, fill = group),position="fill")+ # coloring the different categories
+  scale_y_continuous(labels = scales::percent)+ # getting the percentage of scores within each ward
+  guides(fill=guide_legend(title = "Score Group"))+
+  labs(x = "Ward",
+       y = " Percentage of Apartments in ward",
+       color = "Evaluation Score") 
+```
+out of pop 1519 and pop 2024, how many are giving birth?
+
+
+OR declining population caused by declining birth rates?
+
+
+This is declining of race as a possible explanation to declining birth rates
+```{r}
+birth3 = birth2 %>%
+  select(year,pop,pop1519,pop2024,popwhitenh1519,popwhitenh2024,popblacknh1519,popblacknh2024,pophispanic1519,pophispanic2024) %>%
+  filter(year >= 2000) %>%
+  group_by(year)%>%
+  summarize(sumpop = sum(pop), sum15 = sum(pop1519), sum20 = sum(pop2024),sumwhite15 = sum(popwhitenh1519), sumwhite20 = sum(popwhitenh2024), sumblack15 = sum(popblacknh1519), sumblack20 = sum(popblacknh2024),sumhsp15 = sum(pophispanic1519), sumhsp20 = sum(pophispanic2024))
+
+```
+
+```{r}
+birth2 = birth2 %>%
+  filter(year >=2000)
+
+ggplot(birth2, aes(x=pop1519)) +
+  geom_histogram(color = "black", fill="white")+ #to remove the bins=30 error
+  theme_minimal()+
+  xlab("Evaluation Score") +
+  ylab("Number of Apartments")
+```
+```{r}
+ggplot(birth2, aes(x=pop2024)) +
+  geom_histogram(color = "black", fill="white")+ #to remove the bins=30 error
+  theme_minimal()+
+  xlab("Evaluation Score") +
+  ylab("Number of Apartments")
+```
+Change in birth rates map for 1519 + 2024 for 2000 to 2019
+```{r}
+birth1 = read_dta("nchs_births_pop_1990_2019.dta")
+map = birth1 %>%
+  filter((year >= 1999 & year <= 2000) | (year>=2018 & year<=2019)) %>%
+  filter(!stname %in% c("AB","BC","MB","NB","NS","ON","QC","SK","XX")) %>%
+  group_by(stname, year) %>%
+  summarize(sum = sum(numbirth2034), .groups = "drop")
+```
+
+```{r}
+birth2 = read_dta("age_race_comp_seer.dta")
+map2 = birth2 %>%
+  filter((year >= 1999 & year <= 2000) | (year>=2018 & year<=2019)) %>%
+  group_by(stname, year) %>%
+  summarize(sumpop = sum(pop2034),.groups = "drop")
+```
+
+
+```{r}
+map01 = map %>%
+  mutate(year = ifelse(year >= 1999 & year <= 2000, 2000, 2019))
+map02 = map2 %>%
+  mutate(year = ifelse(year >= 1999 & year <= 2000, 2000, 2019)) 
+
+
+```
+
+```{r}
+mapjoin = cbind(map01,map02) 
+
+mapjoin = mapjoin %>%
+  select(-c(4:5))%>%
+  mutate(birthrate = (sum/sumpop)*1000)
+  
+```
+
+
+```{r}
+mapjoin2019 = mapjoin %>%
+  group_by(stname) %>%
+  slice_max(order_by = year) %>%
+  group_by(stname) %>%
+  summarize(average = mean(birthrate))
+```
+
+
+```{r}
+mapjoin2000 = mapjoin %>%
+  group_by(stname) %>%
+  slice_min(order_by = year) %>%
+  group_by(stname) %>%
+  summarize(average = mean(birthrate))
+```
+
+```{r}
+mapdiff = left_join(mapjoin2019, mapjoin2000, by="stname") %>%
+  mutate(decline = average.x - average.y) %>%
+  mutate(fips = fips(stname)) 
+```
+
+```{r, fig.cap = "Fall in Birth rates for young women from 1999-2000 to 2018-2019 by state"}
+plot_usmap(data = mapdiff, values = "decline", regions = "states") + 
+  scale_fill_continuous(low = "red", high = "green", name = "Change in birth rates (%)", label = scales::comma) +
+  theme(panel.background=element_blank()) +
+  theme(legend.position = "right")
+```
+
+# Table 1 
+
+```{r}
+table = numbirth %>%
+  group_by(year) %>%
+  summarize(sumbirth = sum(numbirth1544))
+
+
+birth1$numbirthwhite15 = birth1$numbirth_lesshs_whitenh_1519 + birth1$numbirth_educ_miss_whitenh_1519 + birth1$numbirth_gtc_whitenh_1519 + birth1$numbirth_somecoll_whitenh_1519 + birth1$numbirth_hsgrad_whitenh_1519 + birth1$numbirth_ba_whitenh_1519
+  
+birth1$numbirthblack15 = birth1$numbirth_lesshs_blacknh_1519 + birth1$numbirth_educ_miss_blacknh_1519 + birth1$numbirth_gtc_blacknh_1519 + birth1$numbirth_somecoll_blacknh_1519 + birth1$numbirth_hsgrad_blacknh_1519 + birth1$numbirth_ba_blacknh_1519
+  
+birth1$numbirthhisp15 = birth1$numbirth_lesshs_hisp_1519 + birth1$numbirth_educ_miss_hisp_1519 + birth1$numbirth_gtc_hisp_1519 + birth1$numbirth_somecoll_hisp_1519 + birth1$numbirth_hsgrad_hisp_1519 + birth1$numbirth_ba_hisp_1519
+
+birth1$numbirthwhite20 = birth1$numbirth_lesshs_whitenh_2024 + birth1$numbirth_educ_miss_whitenh_2024 + birth1$numbirth_gtc_whitenh_2024 + birth1$numbirth_somecoll_whitenh_2024 + birth1$numbirth_hsgrad_whitenh_2024 + birth1$numbirth_ba_whitenh_2024
+  
+birth1$numbirthblack20 = birth1$numbirth_lesshs_blacknh_2024 + birth1$numbirth_educ_miss_blacknh_2024 + birth1$numbirth_gtc_blacknh_2024 + birth1$numbirth_somecoll_blacknh_2024 + birth1$numbirth_hsgrad_blacknh_2024 + birth1$numbirth_ba_blacknh_2024
+  
+birth1$numbirthhisp20 = birth1$numbirth_lesshs_hisp_2024 + birth1$numbirth_educ_miss_hisp_2024 + birth1$numbirth_gtc_hisp_2024 + birth1$numbirth_somecoll_hisp_2024 + birth1$numbirth_hsgrad_hisp_2024 + birth1$numbirth_ba_hisp_2024
+
+totalpop = birth1 %>%
+  group_by(year) %>%
+  summarize(sumpop = sum(pop1544), sumbirthwhi15 = sum(numbirthwhite15),sumbirthbla15=sum(numbirthblack15),sumbirthhsp15 = sum(numbirthhisp15),sumbirthwhi20 = sum(numbirthwhite20),sumbirthbla20=sum(numbirthblack20),sumbirthhsp20 = sum(numbirthhisp20))
+
+ageracepop = birth2 %>%
+  group_by(year) %>%
+  summarize(sumw15 = sum(popwhitenh1519), sumw20 = sum(popwhitenh2024), sumblack15 = sum(popblacknh1519), sumblack20 = sum(popblacknh2024),sumhsp15 = sum(pophispanic1519), sumhsp20 = sum(pophispanic2024))
+
+birth = birth %>%
+  filter(year >= 1990 & year < 2020)
+
+fulltable = cbind(table,totalpop,ageracepop,birth)
+fulltable = fulltable %>%
+  select(-c(3,11,18))
+```
+
+
+```{r}
+fulltable %>%
+  
+```
+
+implications for teenaged mom is a good thing that the borth rates are decreasing? deop for teenage that teen birth decrease, for 2024 college and grad school. Check how teen pregnancy  and female enollment has increased. Putting of their mom lives for careers?
+
+```{r}
+birth2 %>%
+  filter(year >= 2000)%>%
+  select(year, brate_whitenh, brate_blacknh, brate_hisp) %>%
+  pivot_longer(cols = c("brate_whitenh", "brate_blacknh", "brate_hisp"),
+               names_to = "racegroup",
+               values_to = "value"
+               ) %>%
+  ggplot(mapping = aes(x = year, y = value, color = racegroup)) +
+  geom_line() +
+  theme_classic() +
+  scale_x_continuous(breaks = seq(1990,2020,by = 5))+
+  labs(x = " ",
+       y = " ",
+       color = " ") +
+  scale_color_brewer(palette = "Set1", labels = c("Black, non-Hispanic", "Hispanic", " White, non-Hispanic")) +
+  theme(legend.position = "bottom")
+```
+
+Declining hispanic birth rates, white stayed relatively constant, there was a spike
+
+
+
+
+```{r}
+studentdebt = student_debt %>%
+  group_by(year) %>%
+  summarize(meandebt = mean(stud_loan_cap))
+
+renttable = rent %>%
+  group_by(year) %>%
+  summarize(meanrent = mean(avg_grossrent))
+
+religiontable = religion %>%
+  group_by(year) %>%
+  mutate(important = very_important+somewhat_important/(very_important+somewhat_important + not_too_important + not_at_all_important )) %>%
+  summarize(meanpercentimportant = mean(important)) %>%
+  select(year, meanpercentimportant)
+
+childcare = childcare[complete.cases(childcare), ]
+childtable = childcare %>%
+  group_by(year) %>%
+  summarize(meanchildcare = mean(coll_c3))
+
+explanatory_table = cbind(studentdebt,renttable,religiontable,childtable)
+explanatory = explanatory_table %>%
+  select(-c(1, 3,5,7)) 
+
+explanatory %>%
+  knitr::kable(col.names = c("Mean Student Debt", "Mean rent", "Percentage important","Mean childcosts"), caption = "Changes in possible explanatory variables") 
+```
+NOTE: for the childcare table, the values for some states are missing. discuss this either in the data or in weaknesses/nextsteps
+
+Weaknesses next steps- scrape the data and form our own initial datasets?
+```{r}
+sum(is.na(childcare))
+```
+social explanations: teen birth rate?
