@@ -1,22 +1,61 @@
 ---
-title: "Millenial vs gen z births and change in attitudes of young mothers"
-output: html_document
+title: "Social and Economic Changes have decreased birth rates for millenial and Gen z Mothers (Work in progress)"
+author: "Olaedo Okpareke, Arsh"
+thanks: 'Code and data are available at: https://github.com/OlaedoOkpareke/Paper2Repository. DOI link:' 
+date: "`r format(Sys.time(), '%d %B %Y')`"
+abstract: " "
+output:
+  bookdown::pdf_document2
+toc: FALSE
+bibliography: references2.bib
+
 ---
-heck if the data includes the borth years of the mothers, otherwise we cant know
+A nation's birthrate for a particular year is the total number of live births for a particular year. In order to measure the birth rates and therefore fertility levels for the United States, the National Center for Health Statistics (NCHS), using the Vital Statistics Final Birth Report and the 2020 Provisional Birth Report (cite both) aggregates data on birth rates for women by age, race, and educational status. The total population of the country, provided to  to plan public services such as health care, education, and transportation is provided by the CDC SEER and also breaks down the population by age and race. In this report,we are interested in the trend in birth rates for mothers who would be seen today as millenial and generation Z for two different years 20 years apart, and these breakdown in birth rates by race, as well as the relationship between changes in possible explanatory factors like economic, social and cultural aspects of the United states and cganges in these birth rates.
+
+We obtained the dataset from the American Economic Association (cite website). We loaded in, cleaned and analyzed the data using  `R` [@citeR], `dplyr`, [@citedplyr], `tidyr` [@citetidyr], `janitor` [@citejanitor], `haven` [@citehaven], and `tidyverse` [@citetidyverse] packages. Figures and tables were created with `ggplot2` [@citeggplot], `knitr` [@citeknit], `dplyr` [@citedplyr], `usmap` [@citeusmap] and `kableExtra` [@citekable]. We first created graphs such as lineplots, scatterplots and maps which showed the data: the trend in birth rates over the years, both for different age groups and then different races. We then created tables that showed the impact of our chosen groups on total birth rate change, as well as showed the statistics for possible causes or correlations to the birth rate changes. 
+
+Young women are not as eager to have children, as this report shows that birth rates have declined for both age groups across the 20 years, and birth rate break downs according to race has also decreased. This implies that the decline is a general national issue as opposed to a specific demogrpahic. The birth rates for the millenial group and Gen z group have gone through significant declines, as well as birth rates for all races experience significant declines. The decline of birth rates for our target groups have also contributed to a significant amount of the total decline in birth rates. Birth rates for our demographic in some stated also experiences large decreases, while some other states had little to no decrease. The variables for birth ratw decline also increased over the time period, correlating to lower birth rates. According to (cite), these rates of birth decline are similar to declines in other high income, developed countries. 
+
+While this census is widely used to forecast population growth, biases and problems in data collection could paint an incorrect view of population and birth rates. this data may also systematically hide certain groups of people and their experiences from the ranks, as well as lead to the ignition of certain harmful political ideologies. The declining birth rates brings to light the problems of increasing cost of living, as well as the opportunity costs of working and childcare for women throughout the country, and helps arguments of economic policies that could further hurt the US populace (cite). However the data and statistics also shows a decline in teenage pregnancy, as well as increases in some economic aspects that benefit women. There are also concerns about biases in measurement, ethical collection and inclusion of all, as well as the future state of population growth in the US and its consequences.
+
+# Data 
+
+## Data Source and Collection 
+
+The datasets for this report were gotten from the data section for "The Puzzle of Falling US Birth Rates since the Great Recession" (cite), a paper from the Journal of Economic Perspectives. The data used by the paper was compiled by various sources such as the NCHR,CDC SEER, NBER Natality Database, and the Current Population Survey
+Annual Social and Economic Supplement (CPS ASEC), the New York Federal Reserve, and the Integrated Public Use Microdata Series (IPUMS) (cite all). The datasets were last accessed on February 16th, 2022. These sources collect and estimate data via national census from US citizens by county or state over the years 1969 to 2019. The birth rate data was gotten from a sample of 100 percent sample of birth certificates (so the population) in some states, and 50 percent of the population as a sample in other states (cite). The national population data from the census counts the entire population of the United States by county (cite). The datasets compiled by the paper authors typically include demographic data by year and for each state. The data in mainly numeric, counting the number of births, total population, or women in a particular demographic, age group, or population. Meanwhile, categorical data is maimly in the form of state.
+
+## Data cleaning 
+
+For data cleaning, our intended sample was young mothers from two generaions: millenial mothers, i.e women who would be in the age groups of 15-19 or 20-24 in the year 2000, and generation z mothers, who would be 15-19 or 20-24 in the year 2020. The year chosen was 2000 to 2020, to see the change in birthrates from one generation to the other. Millenials are considered to be from 1977 to 1995, and gen z from 1997 to 2012 (cite). We also considered birth rates for white, black, and hispanic women, both for all ages and our target ages in order to compare them. We thus filtered our datasets based on those criteria, or used the closest criteria when they were not available.
+
+We included a dataset if they were considered important for the question or revealed important information. We included the race dataset as it gave the main information of the paper in the form of birth rate information for different age groups and races. We also included the numbirth dataset as it had information on birthrates for all the age groups together. We used birth1 as well as it had data for young women age groups birth rates, as well as total population data and demographic data for each race and age combination. birth2 had total population data for each age group and race-age combination. We used rent, student_debt, religion, and childcare as they provided information on the change in rental cost, student debt, importance of religion and rise in child costs, which might have a relationship with the birth rates. 
+We created several of our own datasets by modifying and joining variables.  These datasets including mapdiff, a table which shows the decline of birth rates in each state from 2000 to 2019 and was used to create the map, fulltable, which was used to show how our target demogrpahics contributed to birth rate decline, and explanatory, which was used to display the changes in possible explanatory variables over a period of time. Most final datasets include 51 observations (for each state), 102 observations (for each state by year), or 20 observations (for each year). The full explanation of all modified variables will be explained according in their relvant table/figure. 
+
+Check if the data includes the borth years of the mothers, otherwise we cant know
 liberalis, causing lower borth?
 adoption of more freedom for women?
 abortion?
 women in workforce already still high
+how do you decide whos woman or not, black or not (self identififcation, problems with hiding people). other is grouped together
 miority women have high birth or just white women?
 Analysis by state
 Comapre borths from eaely 2000s to now
 Anyone born between 1978 and 1996 (ages 23 to 38 in 2019) is considered a Millennial, and anyone born from 1997 onward is part of a new
 Measuring error: the generations are highly arbitrary 
 what type of sampling was used? 10 samples from each state. what happened to non response?
-
+who do we decide is gen z or millenial? 
+can't count all, so what happened to non-response?
+The problem of self identification: problems in measuring
+why is hispanic decline so large
+harmful ideologies: white people decreasing birht and population, hispanics increasing births and popualtion., hire more immigrants
 subset on age 15-19 and 20-24, as well as from 1980s onward.
 caption using all 51 states in america from year to year, put source for inner captions
-```{r}
+
+```{r global_options, include=FALSE}
+
+knitr::opts_chunk$set(fig.pos = 'H')
+library("kableExtra")
 install.packages("usmap")
 library("tidyverse")
 library("haven")
@@ -32,6 +71,9 @@ student_debt = read_dta("nyfed-student-debt-per-capita-0419.dta")
 rent = read_dta("longdiff-rentcost-0419.dta")
 religion = read_dta("long-diff-religion.dta")
 childcare = read_dta("child_care_costs_under12_0408_1519.dta")
+birth2 = read_dta("age_race_comp_seer.dta")
+birth1 = read_dta("nchs_births_pop_1990_2019.dta")
+race = read_csv("figs_2a_2b.csv")
 ```
 STUFF FOR REPRODUCTION
 
@@ -46,10 +88,6 @@ birth %>%
 
 
 
-
-```{r}
-race = read_csv("figs_2a_2b.csv")
-```
 
 ```{r}
 race %>%
@@ -97,17 +135,6 @@ does birth control reduce usage for young mothers?
 we dont expect income ratio to affect as these are young moms anyway.
 religious change, specially in bible belt?
 
-```{r}
-birth %>%
-  filter(year >= 1999) %>%
-  ggplot(data=., aes(x=year, y=brate_all))+
-  geom_line()+
-  theme_classic()+
-  ylim(50,80)
-```
-```{r}
-longdiff = read_dta("longdiff-RHS-1519.dta")
-```
 
 
 ```{r}
@@ -189,7 +216,6 @@ ggplot(birth2, aes(x=pop2024)) +
 ```
 Change in birth rates map for 1519 + 2024 for 2000 to 2019
 ```{r}
-birth1 = read_dta("nchs_births_pop_1990_2019.dta")
 map = birth1 %>%
   filter((year >= 1999 & year <= 2000) | (year>=2018 & year<=2019)) %>%
   filter(!stname %in% c("AB","BC","MB","NB","NS","ON","QC","SK","XX")) %>%
@@ -260,6 +286,7 @@ plot_usmap(data = mapdiff, values = "decline", regions = "states") +
 ```{r}
 table = numbirth %>%
   group_by(year) %>%
+  filter(year >= 2000)
   summarize(sumbirth = sum(numbirth1544))
 
 
@@ -277,14 +304,16 @@ birth1$numbirthhisp20 = birth1$numbirth_lesshs_hisp_2024 + birth1$numbirth_educ_
 
 totalpop = birth1 %>%
   group_by(year) %>%
+  filter(year >= 2000) %>%
   summarize(sumpop = sum(pop1544), sumbirthwhi15 = sum(numbirthwhite15),sumbirthbla15=sum(numbirthblack15),sumbirthhsp15 = sum(numbirthhisp15),sumbirthwhi20 = sum(numbirthwhite20),sumbirthbla20=sum(numbirthblack20),sumbirthhsp20 = sum(numbirthhisp20))
 
 ageracepop = birth2 %>%
   group_by(year) %>%
+  filter(year >= 2000) %>%
   summarize(sumw15 = sum(popwhitenh1519), sumw20 = sum(popwhitenh2024), sumblack15 = sum(popblacknh1519), sumblack20 = sum(popblacknh2024),sumhsp15 = sum(pophispanic1519), sumhsp20 = sum(pophispanic2024))
 
 birth = birth %>%
-  filter(year >= 1990 & year < 2020)
+  filter(year >= 2000 & year < 2020)
 
 fulltable = cbind(table,totalpop,ageracepop,birth)
 fulltable = fulltable %>%
@@ -300,7 +329,7 @@ fulltable %>%
 implications for teenaged mom is a good thing that the borth rates are decreasing? deop for teenage that teen birth decrease, for 2024 college and grad school. Check how teen pregnancy  and female enollment has increased. Putting of their mom lives for careers?
 
 ```{r}
-birth2 %>%
+race %>%
   filter(year >= 2000)%>%
   select(year, brate_whitenh, brate_blacknh, brate_hisp) %>%
   pivot_longer(cols = c("brate_whitenh", "brate_blacknh", "brate_hisp"),
@@ -353,7 +382,6 @@ explanatory %>%
 NOTE: for the childcare table, the values for some states are missing. discuss this either in the data or in weaknesses/nextsteps
 
 Weaknesses next steps- scrape the data and form our own initial datasets?
-```{r}
-sum(is.na(childcare))
-```
+
+
 social explanations: teen birth rate?
