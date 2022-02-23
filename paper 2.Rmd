@@ -10,47 +10,33 @@ toc: FALSE
 bibliography: references2.bib
 
 ---
-A nation's birthrate for a particular year is the total number of live births for a particular year. In order to measure the birth rates and therefore fertility levels for the United States, the National Center for Health Statistics (NCHS), using the Vital Statistics Final Birth Report and the 2020 Provisional Birth Report (cite both) aggregates data on birth rates for women by age, race, and educational status. The total population of the country, provided to  to plan public services such as health care, education, and transportation is provided by the CDC SEER and also breaks down the population by age and race. In this report,we are interested in the trend in birth rates for mothers who would be seen today as millenial and generation Z for two different years 20 years apart, and these breakdown in birth rates by race, as well as the relationship between changes in possible explanatory factors like economic, social and cultural aspects of the United states and cganges in these birth rates.
+A nation's birthrate for a particular year is the total number of live births for a particular year. In order to measure the birth rates and therefore fertility levels for the United States, the National Center for Health Statistics (NCHS) aggregates data on birth rates for women by age, race, and educational status. The total population of the country, provided to  to plan public services such as health care, education, and transportation is provided by the CDC SEER and also breaks down the population by age and race. In this report,we are interested in the trend in birth rates for mothers who would be seen today as millenial and generation Z for two different years 20 years apart, and these breakdown in birth rates by race, as well as the relationship between changes in possible explanatory factors like economic, social and cultural aspects of the United states and cganges in these birth rates.
 
 We obtained the dataset from the American Economic Association (cite website). We loaded in, cleaned and analyzed the data using  `R` [@citeR], `dplyr`, [@citedplyr], `tidyr` [@citetidyr], `janitor` [@citejanitor], `haven` [@citehaven], and `tidyverse` [@citetidyverse] packages. Figures and tables were created with `ggplot2` [@citeggplot], `knitr` [@citeknit], `dplyr` [@citedplyr], `usmap` [@citeusmap] and `kableExtra` [@citekable]. We first created graphs such as lineplots, scatterplots and maps which showed the data: the trend in birth rates over the years, both for different age groups and then different races. We then created tables that showed the impact of our chosen groups on total birth rate change, as well as showed the statistics for possible causes or correlations to the birth rate changes. 
 
 Young women are not as eager to have children, as this report shows that birth rates have declined for both age groups across the 20 years, and birth rate break downs according to race has also decreased. This implies that the decline is a general national issue as opposed to a specific demogrpahic. The birth rates for the millenial group and Gen z group have gone through significant declines, as well as birth rates for all races experience significant declines. The decline of birth rates for our target groups have also contributed to a significant amount of the total decline in birth rates. Birth rates for our demographic in some stated also experiences large decreases, while some other states had little to no decrease. The variables for birth ratw decline also increased over the time period, correlating to lower birth rates. According to (cite), these rates of birth decline are similar to declines in other high income, developed countries. 
 
-While this census is widely used to forecast population growth, biases and problems in data collection could paint an incorrect view of population and birth rates. this data may also systematically hide certain groups of people and their experiences from the ranks, as well as lead to the ignition of certain harmful political ideologies. The declining birth rates brings to light the problems of increasing cost of living, as well as the opportunity costs of working and childcare for women throughout the country, and helps arguments of economic policies that could further hurt the US populace (cite). However the data and statistics also shows a decline in teenage pregnancy, as well as increases in some economic aspects that benefit women. There are also concerns about biases in measurement, ethical collection and inclusion of all, as well as the future state of population growth in the US and its consequences.
+While this census is widely used to forecast population growth, biases and problems in data collection could paint an incorrect view of population and birth rates. this data may also systematically hide certain groups of people and their experiences from the ranks, as well as lead to the ignition of certain harmful political ideologies. It could also propogate preconceived biases against women living in poor areas and racial minorities as being "irresponsible" with their bodeis. The declining birth rates brings to light the problems of increasing cost of living, as well as the opportunity costs of working and childcare for women throughout the country, and helps arguments of economic policies that could further hurt the US populace (cite). However the data and statistics also shows a decline in teenage pregnancy, as well as increases in some economic aspects that benefit women. There are also concerns about biases in measurement, ethical collection and inclusion of all, as well as the future state of population growth in the US and its consequences.
 
 # Data 
 
 ## Data Source and Collection 
 
 The datasets for this report were gotten from the data section for "The Puzzle of Falling US Birth Rates since the Great Recession" (cite), a paper from the Journal of Economic Perspectives. The data used by the paper was compiled by various sources such as the NCHR,CDC SEER, NBER Natality Database, and the Current Population Survey
-Annual Social and Economic Supplement (CPS ASEC), the New York Federal Reserve, and the Integrated Public Use Microdata Series (IPUMS) (cite all). The datasets were last accessed on February 16th, 2022. These sources collect and estimate data via national census from US citizens by county or state over the years 1969 to 2019. The birth rate data was gotten from a sample of 100 percent sample of birth certificates (so the population) in some states, and 50 percent of the population as a sample in other states (cite). The national population data from the census counts the entire population of the United States by county (cite). The datasets compiled by the paper authors typically include demographic data by year and for each state. The data in mainly numeric, counting the number of births, total population, or women in a particular demographic, age group, or population. Meanwhile, categorical data is maimly in the form of state.
+Annual Social and Economic Supplement (CPS ASEC), the New York Federal Reserve, and the Integrated Public Use Microdata Series (IPUMS) (cite all). The paper and datasets were last accessed on February 16th, 2022. These sources collect and estimate data via national census from US citizens by county or state over the years 1969 to 2019. The birth rate data was gotten from a sample of 100 percent sample of birth certificates (so the population) in some states, and 50 percent of the population as a sample which was randomly chosen in other states (cite). The national population data from the census counts the entire population of the United States by county, thus response was mandatory by government mandate (cite). The datasets compiled by the paper authors typically include demographic data by year and for each state. The data in mainly numeric, counting the number of births, total population, or women in a particular demographic, age group, or population. Meanwhile, categorical data is maimly in the form of state.
 
 ## Data cleaning 
 
-For data cleaning, our intended sample was young mothers from two generaions: millenial mothers, i.e women who would be in the age groups of 15-19 or 20-24 in the year 2000, and generation z mothers, who would be 15-19 or 20-24 in the year 2020. The year chosen was 2000 to 2020, to see the change in birthrates from one generation to the other. Millenials are considered to be from 1977 to 1995, and gen z from 1997 to 2012 (cite). We also considered birth rates for white, black, and hispanic women, both for all ages and our target ages in order to compare them. We thus filtered our datasets based on those criteria, or used the closest criteria when they were not available.
+For data cleaning, our intended sample was young mothers from two generaions: millenial mothers, i.e women who would be in the age groups of 15-19 or 20-24 in the year 2000, and generation z mothers, who would be 15-19 or 20-24 in the year 2020. The year chosen was 2000 to 2020, to see the change in birthrates from one generation to the other. Millenials are considered to be from 1977 to 1995, and gen z from 1997 to 2012 (cite). We also considered birth rates for white, black, and hispanic women, both for all ages and our target ages in order to compare them. We thus filtered our datasets based on those criteria, or used the closest criteria when they were not available. 2019 is also used if 2020 is not available.
 
-We included a dataset if they were considered important for the question or revealed important information. We included the race dataset as it gave the main information of the paper in the form of birth rate information for different age groups and races. We also included the numbirth dataset as it had information on birthrates for all the age groups together. We used birth1 as well as it had data for young women age groups birth rates, as well as total population data and demographic data for each race and age combination. birth2 had total population data for each age group and race-age combination. We used rent, student_debt, religion, and childcare as they provided information on the change in rental cost, student debt, importance of religion and rise in child costs, which might have a relationship with the birth rates. 
-We created several of our own datasets by modifying and joining variables.  These datasets including mapdiff, a table which shows the decline of birth rates in each state from 2000 to 2019 and was used to create the map, fulltable, which was used to show how our target demogrpahics contributed to birth rate decline, and explanatory, which was used to display the changes in possible explanatory variables over a period of time. Most final datasets include 51 observations (for each state), 102 observations (for each state by year), or 20 observations (for each year). The full explanation of all modified variables will be explained according in their relvant table/figure. 
+We included a dataset if they were considered important for the question or revealed important information. We included the race dataset as it gave the main information of the paper in the form of birth rate information for different age groups and races. We also included the numbirth dataset as it had information on birthrates for all the age groups together. We used birthhist as it gave the breakdown on birth rates by both age group and race. We used birth1 as well as it had data for young women age groups birth rates, as well as total population data and demographic data for each race and age combination. birth2 had total population data for each age group and race-age combination. We used rent, student_debt, religion, and childcare as they provided information on the change in rental cost, student debt, importance of religion and rise in child costs, which might have a relationship with the birth rates. 
+We created several of our own datasets by modifying and joining variables.  These datasets including mapdiff, a table which shows the decline of birth rates in each state from 2000 to 2019 and was used to create the map, fulltable, which was used to show how our target demogrpahics contributed to birth rate decline, and explanatory, which was used to display the changes in possible explanatory variables over a period of time. Most final datasets include 51 observations (for each state), 102 observations (for each state by year), or 20 observations (for each year). 
 
-Check if the data includes the borth years of the mothers, otherwise we cant know
-liberalis, causing lower borth?
-adoption of more freedom for women?
-abortion?
-women in workforce already still high
-how do you decide whos woman or not, black or not (self identififcation, problems with hiding people). other is grouped together
-miority women have high birth or just white women?
-Analysis by state
-Comapre borths from eaely 2000s to now
-Anyone born between 1978 and 1996 (ages 23 to 38 in 2019) is considered a Millennial, and anyone born from 1997 onward is part of a new
-Measuring error: the generations are highly arbitrary 
-what type of sampling was used? 10 samples from each state. what happened to non response?
-who do we decide is gen z or millenial? 
-can't count all, so what happened to non-response?
-The problem of self identification: problems in measuring
-why is hispanic decline so large
-harmful ideologies: white people decreasing birht and population, hispanics increasing births and popualtion., hire more immigrants
-subset on age 15-19 and 20-24, as well as from 1980s onward.
-caption using all 51 states in america from year to year, put source for inner captions
+We modified many variables for the report. We first modified the `numbirth` dataset to add variables for the birth rates for each race and age group combination, as they were unavailable in the original dataset. We did this by adding up all educational statuses for each race and age group combination, as each particpant of borth rates was also recorded their race and age status. The final variables were named `numbirthraceage`, aka. `numbirthwhite15` for births for the white 15-19 population. The `birthhist` dataset was gotten by removing all other variables from the numbirth dataset that were not the newly created ones, and then compiling the values by state and year. 
+
+We then modified the `race` dataset to change the columns of 15-19 and 20-24 age to rows within the column of `group`. We also modified the race columns of the dataset (`bratewhitenh, brateblacknh, bratehisp`) to be rows within the column of `racegroup`. 
+
+For the `mapdiff` dataset, we obtained the value of `decline`, which showed the change in birth rates by state, by first creating two datasets that got the change in number of birth and population (from the `birth1` and `birth2` datasets respectively) for the 20-34 age group from 1999-2000 and 2018- 2019 by state. The values for the 15-19 and 20-24 ages groups were unavailable for those datasets, so we needed to use the next best age group. From those two new datasets, we changed the year column so that it only stated 2000 or 2019. We then joined those two datasets together and divided the number of births by the population to get the birth rate. We then created two additional datasets that contained only the values of 2000 and only the values of 2019, and colected the mean of each value. To get the final dataset of `mapdiff`, we joined those two datasets by state, and got the `decline` variable by subtracting the average birthrate of 2019 from that of 2000. 
 
 ```{r global_options, include=FALSE}
 
@@ -131,11 +117,63 @@ race %>%
 
 STUFF FOR ACTUAL PROJECT
 
-does birth control reduce usage for young mothers?
-we dont expect income ratio to affect as these are young moms anyway.
-religious change, specially in bible belt?
+We are interested in the trend of birth rates for woman ages 15-19 and 20-24 over a 20 year period. This shows the decline of children and the increase of the average birth age and perhaps increase in abortion. This has possible and already happened implications for public social and economic policy. show a measure of income inequality in housing, and have possible implications for public policy. (Figure \@ref(fig:figone)) and (Figure \@ref(fig:figtwo)) using `ggplot2` [@citeggplot] show the spread and distribution of birth rates for women in the two age groups, subsectioned by race.
 
+These plot show the range of births in the united states according to year
+We see that for the 15 to 19 age group, the data is quasi-normal, with most births for the relevant year being between 60 to 190 thousand. The data seems evenly skewed and unimodal. We see that teenage borths tend to be less popular, as the data seems slightly right skewed. This also means that the mean births will be below the median births, which makes sense as teen births in some areas of the US are far higher than others (cite). We also see that black teenaged mothers aare less likely, as they have the lowest births for most years. This is most likely because they are a much smaller segemnt of the population (13% of the population). However we see that black mothers still do manage to have a moderate amount of births. Hispanic teenaged mothers are more middle grtound, having between 60 to 100 thousand births per year. White teenaged mothers are the most likely, do to them being the most in population. They tend to have most of theuir distribution in the high areas, but none in the low areas. 
 
+For the 20-24 age group, there seems to be a slight bimodal distribution, with many births being on two extremes. Due to this it is difficult to determine whether the mean or the median of births will be larger.  We see that there are far more women giving birth at this age group than in the previous age group. We see that young women black mothers are overwhelmingly on the lower end of births, which brings into question why teenage blak mothers had more prevalent births. Hispanic mothers also tend to be at the lower end of the scale, but are more spread out. White births are the largest, taking the higher end of the spectrum, indicating their higher populations, or that white women are more likely to have children at these ages.
+
+We see that brths for black and hispanic mothers at age 20-24 are only double the births of their teenaged counterparts, while white mothers tend to be as much as 5times the number of their teenaged counterparts, Therefore, teenaged motherhood in blakc and hispanic women may be more likelty. 
+
+```{r}
+birth1$numbirthwhite15 = birth1$numbirth_lesshs_whitenh_1519 + birth1$numbirth_educ_miss_whitenh_1519 + birth1$numbirth_gtc_whitenh_1519 + birth1$numbirth_somecoll_whitenh_1519 + birth1$numbirth_hsgrad_whitenh_1519 + birth1$numbirth_ba_whitenh_1519
+  
+birth1$numbirthblack15 = birth1$numbirth_lesshs_blacknh_1519 + birth1$numbirth_educ_miss_blacknh_1519 + birth1$numbirth_gtc_blacknh_1519 + birth1$numbirth_somecoll_blacknh_1519 + birth1$numbirth_hsgrad_blacknh_1519 + birth1$numbirth_ba_blacknh_1519
+  
+birth1$numbirthhisp15 = birth1$numbirth_lesshs_hisp_1519 + birth1$numbirth_educ_miss_hisp_1519 + birth1$numbirth_gtc_hisp_1519 + birth1$numbirth_somecoll_hisp_1519 + birth1$numbirth_hsgrad_hisp_1519 + birth1$numbirth_ba_hisp_1519
+
+birth1$numbirthwhite20 = birth1$numbirth_lesshs_whitenh_2024 + birth1$numbirth_educ_miss_whitenh_2024 + birth1$numbirth_gtc_whitenh_2024 + birth1$numbirth_somecoll_whitenh_2024 + birth1$numbirth_hsgrad_whitenh_2024 + birth1$numbirth_ba_whitenh_2024
+  
+birth1$numbirthblack20 = birth1$numbirth_lesshs_blacknh_2024 + birth1$numbirth_educ_miss_blacknh_2024 + birth1$numbirth_gtc_blacknh_2024 + birth1$numbirth_somecoll_blacknh_2024 + birth1$numbirth_hsgrad_blacknh_2024 + birth1$numbirth_ba_blacknh_2024
+  
+birth1$numbirthhisp20 = birth1$numbirth_lesshs_hisp_2024 + birth1$numbirth_educ_miss_hisp_2024 + birth1$numbirth_gtc_hisp_2024 + birth1$numbirth_somecoll_hisp_2024 + birth1$numbirth_hsgrad_hisp_2024 + birth1$numbirth_ba_hisp_2024
+
+birthhist = birth1 %>%
+  filter(year >= 2000) %>%
+  group_by(year) %>% 
+  select(year,pop1544, numbirthwhite15,numbirthwhite20,numbirthhisp15,numbirthhisp20,numbirthblack15,numbirthblack20) %>%
+  summarize(sumpop = sum(pop1544),white15 = sum(numbirthwhite15), white20 = sum(numbirthwhite20), black15 = sum(numbirthblack15), black20= sum(numbirthblack20), hisp15 = sum(numbirthhisp15), hisp20=sum(numbirthhisp20))
+
+```
+
+```{r}
+birthhist %>%
+  pivot_longer(cols = c("white15", "black15","hisp15"),
+               names_to = "group",
+               values_to = "value"
+               ) %>%
+  ggplot(data =., aes(x=value, color = group, fill=group)) +
+  geom_histogram()+ 
+  theme_minimal()+
+  xlab("Numbe of births") +
+  ylab("Number of Years")
+  
+```
+```{r}
+birthhist %>%
+  pivot_longer(cols = c("white20", "black20","hisp20"),
+               names_to = "group",
+               values_to = "value"
+               ) %>%
+  ggplot(data =., aes(x=value, color = group, fill=group)) +
+  geom_histogram()+ 
+  theme_minimal()+
+  xlab("Number of Births") +
+  ylab("Number of Years")
+  
+```
+(Figure \@ref(fig:figthree)) shows the trend of births for the two age groups in a 20 year period. Millenials would be between ages 15-24 in 2000, and gen Z between ages 15-24 in 2020. We see that there has been a significant decrease in the birth rates, especialy in the 15-19 (teen pregnancy), which has dropped to half its 2000 levels. The 20-24 age grouped by 20 %. This shows the decrease in popualrity for birth at these ages. There was a baby boom in 2006 (cite), which is the reason for the slight increase in birth rates around that time. However overall birth rates for young women has dropped.  According to () there is little reason to beleive these birth rates will increase any time soon. There are some possilbe explanations, including better sex ed for teenagers which led to a decrease in teen pregnancy, mroe women are being focused on their careers and are postponing births, or the increased acceptance of abortions if they can;t afford a child right now.Thesse declining birth rates could also be the cause of declining population (cite), (talk about immigrants due to delcining in discussion)
 
 ```{r}
 race %>%
@@ -147,8 +185,7 @@ race %>%
                ) %>%
   ggplot(mapping = aes(x = year, y = value, color = group)) +
   geom_line() +
-  geom_point() +
-  theme_classic() +
+  theme_minimal() +
   scale_x_continuous(breaks = seq(1980,2020,by = 5))+
   scale_y_continuous(breaks = seq(0,140,by = 20))+
   labs(x = " ",
@@ -157,63 +194,47 @@ race %>%
   scale_color_brewer(palette = "Set1", labels = c("Age 15-19", "Age 20-24")) +
   theme(legend.position = "bottom")
 ```
+(Figure \@ref(fig:figfour)) shows the trend of births for all age groups. We see that the birthrate for hispanic groups has dropped the hardest, going from 100 births per 1000 population to just 70 births for 1000 population. This can either be because the population has greatly increased, or that the number of births has decreased. As the black population has stayed relatively constant for decades, we can deduce that its decrease in population is only due to a decrease in birth rates. The white population has seen a decrease in recent years, but the borthrate has only decreased a little, indicating that the birth rates fro whites is either stangant or increasing. We can see that while for the millenial population there was a wide spread in the birth rates for different races, for gen z they have become more equal. This could be due to economic or social factors. As the income for hispanic families increases and they become more westernized, it is possible that they may be adhering to the western standard of fewer children. 
+
 ```{r}
 race %>%
-  filter(year >= 2000) %>%
-  select(-brate_whitenh, -brate_blacknh, -brate_hisp) %>%
-  pivot_longer(cols = c("brate_1519", "brate_2024","brate_2529", "brate_3034", "brate_3539", "brate_4044"),
-               names_to = "group",
+  filter(year >= 2000)%>%
+  select(year, brate_whitenh, brate_blacknh, brate_hisp) %>%
+  pivot_longer(cols = c("brate_whitenh", "brate_blacknh", "brate_hisp"),
+               names_to = "racegroup",
                values_to = "value"
                ) %>%
-  mutate(group = 
-           case_when(
-             group == "brate_1519" ~ "Ages 15 to 19",
-             group == "brate_2024" ~ "Ages 20 to 24",
-             TRUE ~ "Other Age groups"
-             ) # group scores into separate categories
-  ) %>%
-  ggplot(data=.)+
-  theme_minimal()+
-  geom_bar(mapping = aes(x = year, fill = group),position="fill")+ # coloring the different categories
-  scale_y_continuous(labels = scales::percent)+ # getting the percentage of scores within each ward
-  guides(fill=guide_legend(title = "Score Group"))+
-  labs(x = "Ward",
-       y = " Percentage of Apartments in ward",
-       color = "Evaluation Score") 
-```
-out of pop 1519 and pop 2024, how many are giving birth?
-
-
-OR declining population caused by declining birth rates?
-
-
-This is declining of race as a possible explanation to declining birth rates
-```{r}
-birth3 = birth2 %>%
-  select(year,pop,pop1519,pop2024,popwhitenh1519,popwhitenh2024,popblacknh1519,popblacknh2024,pophispanic1519,pophispanic2024) %>%
-  filter(year >= 2000) %>%
-  group_by(year)%>%
-  summarize(sumpop = sum(pop), sum15 = sum(pop1519), sum20 = sum(pop2024),sumwhite15 = sum(popwhitenh1519), sumwhite20 = sum(popwhitenh2024), sumblack15 = sum(popblacknh1519), sumblack20 = sum(popblacknh2024),sumhsp15 = sum(pophispanic1519), sumhsp20 = sum(pophispanic2024))
-
+  ggplot(mapping = aes(x = year, y = value, color = racegroup)) +
+  geom_line() +
+  theme_minimal() +
+  scale_x_continuous(breaks = seq(1990,2020,by = 5))+
+  labs(x = " ",
+       y = " ",
+       color = " ") +
+  scale_color_brewer(palette = "Set1", labels = c("Black, non-Hispanic", "Hispanic", " White, non-Hispanic")) +
+  theme(legend.position = "bottom")
 ```
 
 ```{r}
-birth2 = birth2 %>%
-  filter(year >=2000)
+birthhist %>%
+  mutate(whiteall = white15 + white20, blackall= black15 + black20, hispall = hisp15+hisp20) %>%
+  select(year, whiteall, blackall, hispall) %>%
+  pivot_longer(cols = c("whiteall", "blackall", "hispall"),
+               names_to = "racegroup",
+               values_to = "value"
+               ) %>%
+  ggplot(mapping = aes(x = year, y = value, color = racegroup)) +
+  geom_line() +
+  theme_minimal() +
+  scale_x_continuous(breaks = seq(1990,2020, by=2))+
+  labs(x = " ",
+       y = " ",
+       color = " ") 
+# add the white only 15 black only 20 populations and divide to get each inidividual birthrate  
+```
 
-ggplot(birth2, aes(x=pop1519)) +
-  geom_histogram(color = "black", fill="white")+ #to remove the bins=30 error
-  theme_minimal()+
-  xlab("Evaluation Score") +
-  ylab("Number of Apartments")
-```
-```{r}
-ggplot(birth2, aes(x=pop2024)) +
-  geom_histogram(color = "black", fill="white")+ #to remove the bins=30 error
-  theme_minimal()+
-  xlab("Evaluation Score") +
-  ylab("Number of Apartments")
-```
+
+
 Change in birth rates map for 1519 + 2024 for 2000 to 2019
 ```{r}
 map = birth1 %>%
@@ -286,26 +307,8 @@ plot_usmap(data = mapdiff, values = "decline", regions = "states") +
 ```{r}
 table = numbirth %>%
   group_by(year) %>%
-  filter(year >= 2000)
-  summarize(sumbirth = sum(numbirth1544))
-
-
-birth1$numbirthwhite15 = birth1$numbirth_lesshs_whitenh_1519 + birth1$numbirth_educ_miss_whitenh_1519 + birth1$numbirth_gtc_whitenh_1519 + birth1$numbirth_somecoll_whitenh_1519 + birth1$numbirth_hsgrad_whitenh_1519 + birth1$numbirth_ba_whitenh_1519
-  
-birth1$numbirthblack15 = birth1$numbirth_lesshs_blacknh_1519 + birth1$numbirth_educ_miss_blacknh_1519 + birth1$numbirth_gtc_blacknh_1519 + birth1$numbirth_somecoll_blacknh_1519 + birth1$numbirth_hsgrad_blacknh_1519 + birth1$numbirth_ba_blacknh_1519
-  
-birth1$numbirthhisp15 = birth1$numbirth_lesshs_hisp_1519 + birth1$numbirth_educ_miss_hisp_1519 + birth1$numbirth_gtc_hisp_1519 + birth1$numbirth_somecoll_hisp_1519 + birth1$numbirth_hsgrad_hisp_1519 + birth1$numbirth_ba_hisp_1519
-
-birth1$numbirthwhite20 = birth1$numbirth_lesshs_whitenh_2024 + birth1$numbirth_educ_miss_whitenh_2024 + birth1$numbirth_gtc_whitenh_2024 + birth1$numbirth_somecoll_whitenh_2024 + birth1$numbirth_hsgrad_whitenh_2024 + birth1$numbirth_ba_whitenh_2024
-  
-birth1$numbirthblack20 = birth1$numbirth_lesshs_blacknh_2024 + birth1$numbirth_educ_miss_blacknh_2024 + birth1$numbirth_gtc_blacknh_2024 + birth1$numbirth_somecoll_blacknh_2024 + birth1$numbirth_hsgrad_blacknh_2024 + birth1$numbirth_ba_blacknh_2024
-  
-birth1$numbirthhisp20 = birth1$numbirth_lesshs_hisp_2024 + birth1$numbirth_educ_miss_hisp_2024 + birth1$numbirth_gtc_hisp_2024 + birth1$numbirth_somecoll_hisp_2024 + birth1$numbirth_hsgrad_hisp_2024 + birth1$numbirth_ba_hisp_2024
-
-totalpop = birth1 %>%
-  group_by(year) %>%
   filter(year >= 2000) %>%
-  summarize(sumpop = sum(pop1544), sumbirthwhi15 = sum(numbirthwhite15),sumbirthbla15=sum(numbirthblack15),sumbirthhsp15 = sum(numbirthhisp15),sumbirthwhi20 = sum(numbirthwhite20),sumbirthbla20=sum(numbirthblack20),sumbirthhsp20 = sum(numbirthhisp20))
+  summarize(sumbirth = sum(numbirth1544))
 
 ageracepop = birth2 %>%
   group_by(year) %>%
@@ -315,39 +318,39 @@ ageracepop = birth2 %>%
 birth = birth %>%
   filter(year >= 2000 & year < 2020)
 
-fulltable = cbind(table,totalpop,ageracepop,birth)
+fulltable = cbind(table,birthhist,ageracepop,birth)
 fulltable = fulltable %>%
   select(-c(3,11,18))
 ```
 
 
 ```{r}
-fulltable %>%
+share_of_pop = fulltable %>%
+  filter(year == 2000 | year==2019) %>%
+  mutate(sumw15/sumpop,sumw20/sumpop,sumblack15/sumpop,sumblack20/sumpop,sumhsp15/sumpop,sumhsp20/sumpop) %>%
+  pivot_longer(cols = c("sumw15/sumpop","sumw20/sumpop","sumblack15/sumpop","sumblack20/sumpop","sumhsp15/sumpop","sumhsp20/sumpop"),
+               names_to = "racepercentpop",
+               values_to = "value"
+               ) %>%
+  select(year,racepercentpop,value)
+
+birthrates = fulltable %>%
+  filter(year == 2000 | year==2019) %>%
+  mutate(w15brate = white15/sumw15*1000, w20brate = white20/sumw20*1000, b15brate = black15/sumblack15*1000, b20brate = black20/sumblack20*1000, h15brate = hisp15/sumhsp15*1000, h20brate = hisp20/sumhsp20*1000) %>%
+  pivot_longer(cols = c("w15brate", "w20brate", "b15brate", "b20brate", "h15brate", "h20brate"),
+               names_to = "racepercentbirth",
+               values_to = "birthratevalue"
+               ) %>%
+  select(year,racepercentbirth,birthratevalue)
+  
+
   
 ```
 
-implications for teenaged mom is a good thing that the borth rates are decreasing? deop for teenage that teen birth decrease, for 2024 college and grad school. Check how teen pregnancy  and female enollment has increased. Putting of their mom lives for careers?
 
 ```{r}
-race %>%
-  filter(year >= 2000)%>%
-  select(year, brate_whitenh, brate_blacknh, brate_hisp) %>%
-  pivot_longer(cols = c("brate_whitenh", "brate_blacknh", "brate_hisp"),
-               names_to = "racegroup",
-               values_to = "value"
-               ) %>%
-  ggplot(mapping = aes(x = year, y = value, color = racegroup)) +
-  geom_line() +
-  theme_classic() +
-  scale_x_continuous(breaks = seq(1990,2020,by = 5))+
-  labs(x = " ",
-       y = " ",
-       color = " ") +
-  scale_color_brewer(palette = "Set1", labels = c("Black, non-Hispanic", "Hispanic", " White, non-Hispanic")) +
-  theme(legend.position = "bottom")
+65.9-58.3
 ```
-
-Declining hispanic birth rates, white stayed relatively constant, there was a spike
 
 
 
@@ -385,3 +388,18 @@ Weaknesses next steps- scrape the data and form our own initial datasets?
 
 
 social explanations: teen birth rate?
+```{r}
+sample |>
+  group_by(group, favorite_color) |>
+  count() |>
+  ungroup() |>
+  group_by(group) |>
+  mutate(prop = n / sum(n)) |>
+  knitr::kable(
+    caption = "Proportion of the treatment and control group that prefer blue or white",
+    col.names = c("Group", "Preferred color", "Number", "Proportion"),
+    digits = 2,
+    booktabs = TRUE,
+    linesep = ""
+  )
+```
