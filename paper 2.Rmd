@@ -29,14 +29,18 @@ Annual Social and Economic Supplement (CPS ASEC), the New York Federal Reserve, 
 
 For data cleaning, our intended sample was young mothers from two generaions: millenial mothers, i.e women who would be in the age groups of 15-19 or 20-24 in the year 2000, and generation z mothers, who would be 15-19 or 20-24 in the year 2020. The year chosen was 2000 to 2020, to see the change in birthrates from one generation to the other. Millenials are considered to be from 1977 to 1995, and gen z from 1997 to 2012 (cite). We also considered birth rates for white, black, and hispanic women, both for all ages and our target ages in order to compare them. We thus filtered our datasets based on those criteria, or used the closest criteria when they were not available. 2019 is also used if 2020 is not available.
 
-We included a dataset if they were considered important for the question or revealed important information. We included the race dataset as it gave the main information of the paper in the form of birth rate information for different age groups and races. We also included the numbirth dataset as it had information on birthrates for all the age groups together. We used birthhist as it gave the breakdown on birth rates by both age group and race. We used birth1 as well as it had data for young women age groups birth rates, as well as total population data and demographic data for each race and age combination. birth2 had total population data for each age group and race-age combination. We used rent, student_debt, religion, and childcare as they provided information on the change in rental cost, student debt, importance of religion and rise in child costs, which might have a relationship with the birth rates. 
-We created several of our own datasets by modifying and joining variables.  These datasets including mapdiff, a table which shows the decline of birth rates in each state from 2000 to 2019 and was used to create the map, fulltable, which was used to show how our target demogrpahics contributed to birth rate decline, and explanatory, which was used to display the changes in possible explanatory variables over a period of time. Most final datasets include 51 observations (for each state), 102 observations (for each state by year), or 20 observations (for each year). 
+We included a dataset if they were considered important for the question or revealed important information. We included the race dataset as it gave the main information of the paper in the form of birth rate information for different age groups and races. We also included the numbirth dataset as it had information on birthrates for all the age groups together. We used the `birthhist` dataset as it gave the breakdown on birth rates by both age group and race. We used birth1 as well as it had data for young women age groups birth rates, as well as total population data and demographic data for each race and age combination. birth2 had total population data for each age group and race-age combination. We used rent, student_debt, religion, and childcare as they provided information on the change in rental cost, student debt, importance of religion and rise in child costs, which might have a relationship with the birth rates. 
+We created several of our own datasets by modifying and joining variables.  These datasets including `mapdiff`, a table which shows the decline of birth rates in each state from 2000 to 2019 and was used to create the map, `fulltable`, which was used to show how our target demogrpahics contributed to birth rate decline, and explanatory, which was used to display the changes in possible explanatory variables over a period of time. Most final datasets include 51 observations (for each state), 102 observations (for each state by year), or 20 observations (for each year). 
 
-We modified many variables for the report. We first modified the `numbirth` dataset to add variables for the birth rates for each race and age group combination, as they were unavailable in the original dataset. We did this by adding up all educational statuses for each race and age group combination, as each particpant of borth rates was also recorded their race and age status. The final variables were named `numbirthraceage`, aka. `numbirthwhite15` for births for the white 15-19 population. The `birthhist` dataset was gotten by removing all other variables from the numbirth dataset that were not the newly created ones, and then compiling the values by state and year. 
+We modified many variables for the report. We first modified the `numbirth` dataset to add variables for the number of births for each race and age group combination, as they were unavailable in the original dataset. We did this by adding up all educational statuses for each race and age group combination, as each particpant of borth rates was also recorded their race and age status. The final variables were named `numbirthraceage`, aka. `numbirthwhite15` for births for the white 15-19 population. The `birthhist` dataset was gotten by removing all other variables from the numbirth dataset that were not the newly created ones, and then compiling the values by state and year. 
 
-We then modified the `race` dataset to change the columns of 15-19 and 20-24 age to rows within the column of `group`. We also modified the race columns of the dataset (`bratewhitenh, brateblacknh, bratehisp`) to be rows within the column of `racegroup`. 
+We then modified the `race` dataset to change the columns of 15-19 and 20-24 age to rows within the column of `group`. We also modified the race columns of the dataset (`bratewhitenh, brateblacknh, bratehisp`) to be rows within the column of `racegroup`. These variables were used to get the trend in birthrates for our age demographocs, and trend in birthrates in race for all demographics. 
 
 For the `mapdiff` dataset, we obtained the value of `decline`, which showed the change in birth rates by state, by first creating two datasets that got the change in number of birth and population (from the `birth1` and `birth2` datasets respectively) for the 20-34 age group from 1999-2000 and 2018- 2019 by state. The values for the 15-19 and 20-24 ages groups were unavailable for those datasets, so we needed to use the next best age group. From those two new datasets, we changed the year column so that it only stated 2000 or 2019. We then joined those two datasets together and divided the number of births by the population to get the birth rate. We then created two additional datasets that contained only the values of 2000 and only the values of 2019, and colected the mean of each value. To get the final dataset of `mapdiff`, we joined those two datasets by state, and got the `decline` variable by subtracting the average birthrate of 2019 from that of 2000. 
+
+For the first table, we got the `table` dataset by grouping `numbirth` dataset by year of more than 2000 and then summing up the entire female population by state, which was stored as `sumbirth`. We then created the `ageracepop` dataset using the same methods but now summing up the different age-race combination populations. We named these variables for each combination `sumraceage`, e.g `sumblack20`. We filtered the `birth` dataset between 2000 and 2020. We then joined these three datasets, along with the previous `birthhist`, to create `fulltable`. From `fulltable` we got the `share_of_pop` dataset with variables that got the percentage of population of a demographic by dividing the `sumraceage` variable by the `sumpop` variable. From `fulltable` we also got `birthrates` which got the relative birthrates for each race-age combination, by dividing the number of birhs for eact race-age combination by the total number of births. These variables were named `raceagebrate`, e.g `b20brate`. We then got the `contribution` variable by subtracting 2019 values from the 2000 values and dividing that by the `brate_all` for 2000. 
+
+We got `avg_grossrent` by grouping the `student_debt` variable by year and getting the mean value of all the states. We got `meanchildcare` and `meandebt` using the same methods from the `childcare` and `studentdebt` datasets respectively. We got the `meanpercentimportant` dataset by adding the values of `very important` and `somewhat important` from the `religion` dataset and dividing it by the previous two values and `not_too_important` and `not_at_all_important`, and then getting the mean of all the states. Note that for these variables we needed to use 2004 as 2000 was not avaiable.
 
 ```{r global_options, include=FALSE}
 
@@ -173,6 +177,9 @@ birthhist %>%
   ylab("Number of Years")
   
 ```
+
+## Results 
+ 
 (Figure \@ref(fig:figthree)) shows the trend of births for the two age groups in a 20 year period. Millenials would be between ages 15-24 in 2000, and gen Z between ages 15-24 in 2020. We see that there has been a significant decrease in the birth rates, especialy in the 15-19 (teen pregnancy), which has dropped to half its 2000 levels. The 20-24 age grouped by 20 %. This shows the decrease in popualrity for birth at these ages. There was a baby boom in 2006 (cite), which is the reason for the slight increase in birth rates around that time. However overall birth rates for young women has dropped.  According to () there is little reason to beleive these birth rates will increase any time soon. There are some possilbe explanations, including better sex ed for teenagers which led to a decrease in teen pregnancy, mroe women are being focused on their careers and are postponing births, or the increased acceptance of abortions if they can;t afford a child right now.Thesse declining birth rates could also be the cause of declining population (cite), (talk about immigrants due to delcining in discussion)
 
 ```{r}
@@ -336,21 +343,25 @@ share_of_pop = fulltable %>%
 
 birthrates = fulltable %>%
   filter(year == 2000 | year==2019) %>%
-  mutate(w15brate = white15/sumw15*1000, w20brate = white20/sumw20*1000, b15brate = black15/sumblack15*1000, b20brate = black20/sumblack20*1000, h15brate = hisp15/sumhsp15*1000, h20brate = hisp20/sumhsp20*1000) %>%
+  mutate(w15brate = white15/sumbirth*1000, w20brate = white20/sumbirth*1000, b15brate = black15/sumbirth*1000, b20brate = black20/sumbirth*1000, h15brate = hisp15/sumbirth*1000, h20brate = hisp20/sumbirth*1000) %>%
   pivot_longer(cols = c("w15brate", "w20brate", "b15brate", "b20brate", "h15brate", "h20brate"),
                names_to = "racepercentbirth",
                values_to = "birthratevalue"
                ) %>%
   select(year,racepercentbirth,birthratevalue)
   
+```
 
+```{r}
+contribution = birthrates %>%
+  pivot_wider(names_from = year, values_from = birthratevalue) 
+  
+contribution$contribution = ((contribution$"2000" - contribution$"2019")/65.9)*20
   
 ```
 
 
-```{r}
-65.9-58.3
-```
+
 
 
 
@@ -388,18 +399,3 @@ Weaknesses next steps- scrape the data and form our own initial datasets?
 
 
 social explanations: teen birth rate?
-```{r}
-sample |>
-  group_by(group, favorite_color) |>
-  count() |>
-  ungroup() |>
-  group_by(group) |>
-  mutate(prop = n / sum(n)) |>
-  knitr::kable(
-    caption = "Proportion of the treatment and control group that prefer blue or white",
-    col.names = c("Group", "Preferred color", "Number", "Proportion"),
-    digits = 2,
-    booktabs = TRUE,
-    linesep = ""
-  )
-```
