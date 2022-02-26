@@ -1,7 +1,7 @@
 ---
 title: "Social and Economic Changes have decreased birth rates for millenial and Gen z Mothers (Work in progress)"
 author: "Olaedo Okpareke, Arsh"
-thanks: 'Code and data are available at: https://github.com/OlaedoOkpareke/Paper2Repository. DOI link:' 
+thanks: 'Code, data and replication are available at: https://github.com/OlaedoOkpareke/Paper2Repository and https://doi.org/10.48152/ssrp-8bs7-7e32' 
 date: "`r format(Sys.time(), '%d %B %Y')`"
 abstract: "PUT SOMETHING HERE"
 output:
