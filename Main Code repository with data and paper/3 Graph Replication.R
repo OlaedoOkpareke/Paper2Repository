@@ -1,7 +1,7 @@
 # Loading in datasets
 
-birth = read_csv("fig_1.csv")
-race = read_csv("figs_2a_2b.csv")
+birth = read_csv("Inputs/Data/fig_1.csv")
+race = read_csv("Inputs/Data/figs_2a_2b.csv")
 write_csv(birth, "Replication-Birth Rates/birth.csv")
 write_csv(race, "Replication-Birth Rates/race.csv")
 
