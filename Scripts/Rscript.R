@@ -14,7 +14,7 @@
 library(haven)
 library(tidyverse)
 
-# Reading in the data in the raw data.
+# Reading in the data.
 birth = read_csv("Inputs/Data/fig_1.csv")
 numbirth = read_csv("Inputs/Data/numbirths_2001_2019.csv")
 student_debt = read_dta("Inputs/Data/nyfed-student-debt-per-capita-0419.dta")
