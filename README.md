@@ -16,13 +16,17 @@ The pdf file contains the same analysis report but in pdf form, and without the 
 
 2. The Inputs folder:
 
-The csv files contains the dta files and csv datasets used in the report. 
+The dta files are the files downloaded from the original paper's data package. 
+The csv files contains the convertes csv datasets used in the report. 
 
 3. The Scripts folder:
 
 The r script contains code for downloading the data and converting them to csv form.
 
 4. Main Code repository with data and paper folder:
-This contains the reproduction package. The rscript file contains the coad to load in the data, as well as the code to replicate the three graphs. 
+
+This contains the reproduction package. The r script file within this package contains the code to load in the data, as well as the code to replicate the three graphs. 
+
+Note: The original data folder was too large to be loaded into R studio properly, so for this analysis the relevant files were uploaded individually.
 
 Abstract:
