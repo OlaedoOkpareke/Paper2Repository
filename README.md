@@ -17,7 +17,7 @@ The pdf file contains the same analysis report but in pdf form, and without the 
 2. The Inputs folder:
 
 The dta files are the files downloaded from the original paper's data package. 
-The csv files contains the convertes csv datasets used in the report. 
+The csv files contains the converted csv datasets used in the report. 
 
 3. The Scripts folder:
 
@@ -30,3 +30,5 @@ This contains the reproduction package. The r script file within this package co
 Note: The original data folder was too large to be loaded into R studio properly, so for this analysis the relevant files were uploaded individually.
 
 Abstract:
+
+Birth rates provide useful information on population growth, and an above-replacement birth rate is indicative of stability. However, previous research has found that birth rates in industrialized societies such as the U.S have been decreasing in recent years. We use data from the American Economic Association to analyze this by using graphs and tables to observe the trend in birth rates of different demographics, using R [@citeR] and other packages. We also observe the trends behind changing economic and cultural factors that could affect the birth rates. We find that birth rates of young women of different races have been on a steep decline over the past 20 years, and factors that are known to decrease birth rates have increased. This report shows that the decline in birth rates are a symptom of cultural and economic changes between two generations of women. While this indicates that the U.S has gotten more culturally liberated, the declining birth rates shows the systemic effects of the worsening economy and increasing costs on the average american woman.
