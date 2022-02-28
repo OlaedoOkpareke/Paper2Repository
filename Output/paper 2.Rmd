@@ -3,7 +3,7 @@ title: "Decline in U.S Birthrates is Indicative of Socio-economic Changes"
 author: "Olaedo Okpareke, Arsh Lakhanpal, Swarnadeep Chattopadhyay"
 thanks: 'Code, data and replication are available at: https://github.com/OlaedoOkpareke/Paper2Repository and https://doi.org/10.48152/ssrp-8bs7-7e32' 
 date: "`r format(Sys.time(), '%d %B %Y')`"
-abstract: "birth rates are merely a symptom of cultursl changes betweeen two generations and the economic situation. It is important to see that these are caused by everything more expensive now. make sure to cite R in the abstract."
+abstract: "Birth rates provide useful information on community health, and an above-replacement birth rate is indicative of stability. However, previous research has found that birth rates in industrialized societies such as the U.S have been decreasing in recent years. We use data from the American Economic Association to analyze this by using graphs and tables to observe the trend in birth rates of different demographics, using R [@citeR] and other packages. We also observe the trends behind changing economic and cultural factors that could affect the birth rates. We find that birth rates of young women of different races have been on a steep decline over the past 20 years, and factors that are known to decrease birth rates have been on an increase. This report shows that the decline in birth rates are a symptom of cultural and economic changes on women between two generations. While this indicates that the U.S has gotten more culturally liberated and industrialized, the declining birth rates shows the systemic effects of the worsening economy and increasing costs on the average american woman."
 output:
   bookdown::pdf_document2
 toc: FALSE
@@ -11,11 +11,12 @@ bibliography: references2.bib
 
 ---
 
+   
 # Introduction 
 
 A nation's birthrate for a particular year is the total number of live births per 1000 people for that year. In order to measure the birth rates and fertility levels to forecast population growth for the United States, the National Center for Health Statistics (NCHS) aggregates data on birth rates for women by age, race, educational status, and other factors. The total population of the country is the total number of citizens and other residents in the country, regardless of legal status. It is used in many types of planning, such as planning and decisions on public services, health care, education, government funding, transportation, and politics. The total population is obtained through a population census, provided by the CDC Surveillance, Epidemiolody, and End results program (CDC SEER). This information also breaks down the population by age, race, and socio-economic factors. In this report,we are interested in the trend in birth rates of young women from 2000 to 2020 as well as the breakdown of these birth rates by the race and age demographics of the mother. We are also interested in the relationship between the change in economic, social and cultural aspects of the United states and the change in these birth rates. 
 
-We obtained the dataset from the American Economic Association [@citewebsite]. We loaded in, cleaned and analyzed the data using  `R` [@citeR], `dplyr`, [@citedplyr], `tidyr` [@citetidyr], `janitor` [@citejanitor], `haven` [@citehaven], and `tidyverse` [@citetidyverse] packages. Figures and tables were created with `ggplot2` [@citeggplot], `knitr` [@citeknit], `dplyr` [@citedplyr], `usmap` [@citeusmap], `gridExtra` [@citegrid] and `kableExtra` [@citekable]. We first created histograms and scatter plots which showed the most important variables. We then created line plots and a map which showed the trend in birth rates over the years, for different age groups, races, and states. We then created tables which showed the relative contributions of our target demographics on the change in birth rates and the differences in their populations, as well as showed the change in values for possible economic and societal factors that may be correlated to birth rates. 
+We obtained the dataset from the American Economic Association [@citewebsite]. We loaded in, cleaned and analyzed the data using  `R` [@citeR], `dplyr`, [@citedplyr], `tidyr` [@citetidyr],`haven` [@citehaven], and `tidyverse` [@citetidyverse] packages. Figures and tables were created with `ggplot2` [@citeggplot], `knitr` [@citeknit], `dplyr` [@citedplyr], `usmap` [@citeusmap], `gridExtra` [@citegridExtra] and `kableExtra` [@citekable]. We first created histograms and scatter plots which showed the most important variables. We then created line plots and a map which showed the trend in birth rates over the years, for different age groups, races, and states. We then created tables which showed the relative contributions of our target demographics on the change in birth rates and the differences in their populations, as well as showed the change in values for possible economic and societal factors that may be correlated to birth rates. 
 
 Young women are in no rush to have children, as this report shows that birth rates have declined for the 15-24 age groups over the past 20 years. The report also shows that birth rates have declined for all races analyzed over the same period of time. This implies that this decline is a general national issue attributed to national factors, as opposed to factors that mainly affect a specific demographic. The birth rates for our target demographics have declined to the point that they make up a rather large contribution to the total decline in US birth rates. Birth rates for our age demographics have experienced large decreases in some states, while those in other states have had a relatively smaller decrease or no decrease at all. This may be due to the fact that some economic or social changes of the country affect some geographic areas more than others. These economic and social factors suspected to have an influence on birth rates also changed over the past 20 years in ways that would correlate with declining birth rates. According to [@citeadsera], these rates of birth decline are similar to declines in other high income, developed countries. 
 
@@ -33,22 +34,21 @@ For data cleaning, our target sample and main focus was young mothers from two g
 
 ## Data Modification
 
-We included a dataset if they were considered important to answering the question behind birthrates, or revealed important information. We included the datasets that had information on race, as this was needed to compare birth rates for different races. We also had datasets on total number of births and/or birth rates, both of which were used to analyze the decline in births. We had total population datasets, used to get the birth rates and our demographic's share of the population. We had datasets on birth rates for different age groups, states, and years, all of which were used to analyze the trends in birth rates for different groups.  We also included datasets that included information on government policy, rent costs, student debt, religious beliefs, and childcare costs. These datasets were used to signify a possible relationship between these variables and birth rates.
+We included datasets and variable if they were considered important to answering the question behind birthrates, or revealed important information. We included the variables that had information on race, as this was needed to compare birth rates for different races. We also had variables on total number of births and/or birth rates, both of which were used to analyze the decline in births. We had a total population variable, used to get the birth rates and our demographic's share of the population. We had variables on birth rates for different age groups, states, and years, all of which were used to analyze the trends in birth rates for different groups.  We also included variables on government policy, rent costs, student debt, religious beliefs, and childcare costs. These variables were used to signify a possible relationship between them and birth rates.
 
 We created several of our own datasets by modifying and joining variables. One dataset was gotten by adding all the educational statuses for each age-race combination from another dataset to get the total birth rate for each combination, and then compiling the values by state and year. We also got a variable for total population by adding the total population for each state in a year.  We obtained the final dataset used to create the map of birth rate decline by combining various other datasets by year, and subtracting the birth rates of the later years by that of the earlier years. The final dataset that showed how our demographics of interest contributed to total birth rate decline was created by joining several datasets all which compared important information, then dividing the columns of our demographic by the column of total birth rates to get the relative contributions. The final dataset used to display the change in explanatory variables over time was gotten by combining the datasets, each of which explained the changes in a single variable. Most final datasets include either 51 observations (for each state), 102 observations (for each state by year), or 20 observations (for each year). 
 
-We modified many variables for the report. We created variables for total birth rates of each race-age combination by adding up all educational statuses for each race and age group combination and dividing by the total population, as each person whose birth rates was recorded also had their educational status recorded. We also modified age group variables by changing the columns of 15-19 and 20-24 age to rows within the column of `group`. We did the same for race variables, modifying the columns to be rows within one group, and then multiplying the values column by 10,000 and dividing by the total female population to get the birth rates for each race.These variables were used to get the trend in birthrates for our age demographics, and trend in birthrates in race for our age demographics. We obtained a variable which got the decline in birth rates from 2000 to 2019 by state, by creating dividing the number of births by population to get birth rates, grouping them by year and state, and then subtracting the values of the later year from the values of the earlier year.
+We modified many variables for the report. We created variables for total birth rates of each race-age combination by adding up all educational statuses for each race and age group combination and dividing by the total population, as each person whose birth rates was recorded also had their educational status recorded. We also modified age group variables by changing the columns of 15-19 and 20-24 age to rows within one column. We did the same for race variables, modifying the columns to be rows within one group, and then multiplying the values column by 10,000 and dividing by the total female population to get the birth rates for each race.These variables were used to get the trend in birthrates for our age demographics, and trend in birthrates in race for our age demographics. We obtained a variable which got the decline in birth rates from 2000 to 2019 by state, by creating dividing the number of births by population to get birth rates, grouping them by year and state, and then subtracting the values of the later year from the values of the earlier year.
 
-We got a variable for the total number of births by adding up all the births by state and then grouping them by year. We got a variable that stated the total population of each race-age combination by similar methods. we obtained a variable got the percentage of population of a demographic by dividing the sum of that demographic by the total population and multiplying by 100. We had a variable that got contribution to total birth rate decline by subtracting 2019 values from the 2000 values and dividing that by the total birthrate value for 2000 and multiplying by 200. We got the variables for all our explanatory factors by grouping them by year and getting the mean values from all the states. For the average debt, we multiplied by 10,000 as that is how it was shown in the original source. We got the variable on the importance of religion by dividing the number of people who felt religion was important over the total number surveys.Note that for these variables we needed to use 2004 as 2000 was not available.
+We got a variable for the total number of births by adding up all the births by state and then grouping them by year. We got a variable that stated the total population of each race-age combination by similar methods. we obtained a variable got the percentage of population of a demographic by dividing the sum of that demographic by the total population and multiplying by 100. We produced a variable on contribution to total birth rate decline by subtracting 2019 birth rates of the age group from the 2000 birthrates of the same age group and dividing that by the total birthrate value for 2000, then multiplying by 200. We got the variables for all our explanatory factors by grouping them by year and getting the mean values from all the states. For the average debt, we multiplied by 10,000 as that is how it was shown in the original source. We got the variable on the importance of religion by dividing the number of people who felt religion was important over the total number surveys.Note that for these variables we needed to use 2004 as 2000 was not available.
 
 ```{r global_options, include=FALSE}
-# laoding in relevant libraries
+# loading in relevant libraries
 knitr::opts_chunk$set(fig.pos = 'H')
 library("kableExtra")
-# install.packages("usmap")
+#install.packages("usmap")
 library("tidyverse")
 library("haven")
-library("janitor")
 library("dplyr")
 library("usmap")
 library("gridExtra")
@@ -56,6 +56,7 @@ library("gridExtra")
 
 ```{r,include = FALSE}
 #loading in relevant datasets
+
 birth = read_csv(here::here("Inputs/Data/birth.csv"))
 numbirth = read_csv(here::here("Inputs/Data/numbirth.csv"))
 student_debt = read_csv(here::here("Inputs/Data/student_debt.csv"))
@@ -79,6 +80,7 @@ For the 20-24 age group, there seems to be a slight bimodal distribution, with m
 In contrast, in (Figure \@ref(fig:figthree)) the distribution for the total population of women for the past 20 years seems uniformal, with almost all years having their own value. This is because the population of a nation either increases or decreases, rarely staying the same. Due to this we can say that the mean and median population are approximately the same. However there are some years which had about the same population, this could be due to declining population as a later year has the same population as an earlier year. From the scatterplot we see that the total female population has only been increasing in recent years, with a seemingly exponential increase. This increase in the population could be due to increased amounts of immigration and the increased lifespan of the elderly to offset the decreasing birthrates. However, the two dips in the scatterplot correspond to the previous histogram of which had years with similar values. 
 
 ```{r, include=FALSE}
+
 # getting total number of births for white people from 15 to 19 years old
 birth1$numbirthwhite15 = birth1$numbirth_lesshs_whitenh_1519 + birth1$numbirth_educ_miss_whitenh_1519 + birth1$numbirth_gtc_whitenh_1519 + birth1$numbirth_somecoll_whitenh_1519 + birth1$numbirth_hsgrad_whitenh_1519 + birth1$numbirth_ba_whitenh_1519
 
@@ -106,7 +108,8 @@ birthhist = birth1 %>%
 
 ```
 
-```{r figone, echo = FALSE, fig.cap = "Distribution of Number of Births for the 15 to 19 age group from 2000 to 2020", message = FALSE}
+
+```{r figone, out.width="90%", echo = FALSE, fig.cap = "Distribution of Number of Births for the 15 to 19 age group from 2000 to 2020", message = FALSE}
 
 # converts the columns to rows and creates the histogram
 birthhist %>%
@@ -114,14 +117,16 @@ birthhist %>%
                names_to = "Race",
                values_to = "value"
                ) %>%
-  ggplot(data =., aes(x=value, color = Race, fill=Race)) +
+  ggplot(data =., aes(x=value, fill = Race)) +
   geom_histogram()+ 
   theme_minimal()+
   xlab("Number of births") +
-  ylab("Number of Years") 
-  
+  ylab("Number of Years") +
+  scale_fill_brewer(palette = "Set1", labels = c("Black, non-Hispanic", "Hispanic", "White, non-Hispanic"))
 ```
-```{r figtwo, echo = FALSE, fig.cap = "Distribution of the number of births from the 20 to 24 age group from 2000 to 2020", message = FALSE}
+
+
+```{r figtwo, out.width="90%", echo = FALSE, fig.cap = "Distribution of the number of births from the 20 to 24 age group from 2000 to 2020", message = FALSE}
 
 # converts the columns to rows and creates the histogram
 
@@ -130,15 +135,16 @@ birthhist %>%
                names_to = "Race",
                values_to = "value"
                ) %>%
-  ggplot(data =., aes(x=value, color = Race, fill=Race)) +
+  ggplot(data =., aes(x=value,fill=Race)) +
   geom_histogram()+ 
   theme_minimal()+
   xlab("Number of Births") +
-  ylab("Number of Years")
+  ylab("Number of Years")+
+  scale_fill_brewer(palette = "Set1", labels = c("Black, non-Hispanic", "Hispanic", "White, non-Hispanic"))
   
 ```
 
-```{r figthree, echo = FALSE, fig.cap = "Distribution of the total number of births and total female population from 2000 to 2020"}
+```{r figthree, out.width="90%", echo = FALSE, fig.cap = "Distribution of the total number of births and total female population from 2000 to 2020"}
 
 # groups the total female population by year and compiles nationally, then creates the histogram
 pop_plot = birth2 %>%
@@ -171,7 +177,7 @@ grid.arrange(pop_plot,pop_plot1, nrow =2)
 (Figure \@ref(fig:figfour)) shows the trend of births for the two age groups in a 20 year period. We see that there has been a significant decrease in the birth rates, especially in the 15-19 age group, dropping to half of its 2000 levels. This indicates a decrease in teenage pregnancy nationwide. The birth rates for the 20-24 age dropped by around 40% over the same time period. This may be because generation Z women are deciding to have children later in life. There was a baby boom in 2006 [@citecatholic], which is the reason for the slight increase in birth rates around that time. However overall birth rates for young women has dropped.  According to [@Caldwell2006] there is little reason to believe these birth rates will increase any time soon. There are some possible explanations behind this phenomenon, including better sex education for teenagers leading to a decrease in teen pregnancy, more women focusing on their careers and thus postponing births [@citeexecutive], or the increased acceptance of abortions. These declining birth rates could also be the cause of declining population. There are also economic factors correlated to this decline, including the rising cost of living.
 
 
-```{r figfour, echo = FALSE, fig.cap = "Trend in Birth rates for the 15-19 and 20-24 age groups from 2000 to 2020"}
+```{r figfour, out.width="90%", fig.cap = "Trend in Birth rates for the 15-19 and 20-24 age groups from 2000 to 2020", echo = FALSE}
 
 # converting the age column to rows, then creates a line graphing the the trend of the two age groups
 race %>%
@@ -193,9 +199,10 @@ race %>%
   theme(legend.position = "bottom")
 ```
 
-(Figure \@ref(fig:figfive)) shows the trend of births for different races of women from the ages of 15 to 24 over the past 20 years. We see that the birthrate for Hispanic mothers significantly decreased, going from about 63 births per 1000 population to just about 40 births for 1000 population. This can either be because the population of hispanic women has increased due to immigration, or that the number of births has decreased. The birth rates for black women has also halved, going from 50 births per 1000 to just 25 births per 1000. The white birth rates however has taken the largest decrease, going from about 125 births to about 65 births through the 20 years. We see that while millennial mothers (mothers in 2000) had a wide spread in the birth rates for different races, for generation Z they have converged more closely due to the decrease in birth rates for all races. This could be due to economic factors directly related to race, such as inequality in the healthcare system [@Davis2018] . As the income for hispanic families increases and they become more westernized, it is possible that they may be adhering to the western standard of fewer children [@immigbirth].  
+(Figure \@ref(fig:figfive)) shows the trend of births for different races of women from the ages of 15 to 24 over the past 20 years. We see that the birthrate for Hispanic mothers significantly decreased, going from about 63 births per 1000 population to just about 40 births for 1000 population. This can either be because the population of hispanic women has increased due to immigration, or that the number of births has decreased. The birth rates for black women has also halved, going from 50 births per 1000 to just 25 births per 1000. The white birth rates however has taken the largest decrease, going from about 125 births to about 65 births through the 20 years. We see that while millennial mothers (mothers in 2000) had a wide spread in the birth rates for different races, for generation Z they have converged more closely due to the decrease in birth rates for all races. This could be due to economic factors directly related to race, such as inequality in the health care system [@Davis2018] . As the income for hispanic families increases and they become more westernized, it is possible that they may be adhering to the western standard of fewer children [@immigbirth].  
 
-```{r figfive, echo = FALSE, fig.cap = "Trend in Birth rates by Race from 2000 to 2020"}
+
+```{r figfive, out.width="90%", fig.cap = "Trend in Birth rates by Race from 2000 to 2020", echo = FALSE}
 
 # gets the birth rate for each race by adding the number of births from the 15 to 19 and 20 to 24 age group for each race, then multiplying by 10,000 and dividing by the female population
 
@@ -217,7 +224,9 @@ birthhist %>%
   theme(legend.position = "bottom")
   
 ```
-(Table \@ref(fig:tabone)) shows the contribution of our main groups to the total decline in birth rates from 2000 to 2019. It also shows each group's share of the total female population for those years. We see that white women in both age groups have contributed the most to the decline, with a total of 18.2% of the total decrease. White 15 to 19 year old women have caused a 7% drop in the total birth rate, indicating a rapid decline in the teenage pregnancy for this race [@Wingo2011]. White 20 to 24 year old women have contributed the most to the decline, possibly due to economic and cultural factors over the past 20 years [@Maher2017]. Black women for both age groups have not shown a significant contribution to the decline in birth rates over this period however, either because teenage pregnancy for this rates have not decreased significantly or because they are a much lower percentage of the population. Black women are disproportionately poorer, and low economic status leads to higher teenage pregnancy rates [@Gold2001]. The contribution of Hispanic women of ages 20 to 24 is less than their teenage counterparts, showing that there is not a large decrease in their birth rates as opposed to white women. They are also more likely to suffer from disproportional poverty. We see that white womens' share of the population from 2000 to 2019 has decreased due to the large decrease in birth rates. However black and hispanic womens' share of the population over this time period has either increased or not changed, likely due to increasing immigration from these two races over the past 20 years.
+
+
+(Table \@ref(tab:tabone)) shows the contribution of our main groups to the total decline in birth rates from 2000 to 2019. It also shows each group's share of the total female population for those years. We see that white women in both age groups have contributed the most to the decline, with a total of 18.2% of the total decrease. White 15 to 19 year old women have caused a 7% drop in the total birth rate, indicating a rapid decline in the teenage pregnancy for this race [@Wingo2011]. White 20 to 24 year old women have contributed the most to the decline, possibly due to economic and cultural factors over the past 20 years [@Maher2007]. Black women for both age groups have not shown a significant contribution to the decline in birth rates over this period however, either because teenage pregnancy for this rates have not decreased significantly or because they are a much lower percentage of the population. Black women are disproportionately poorer [@citepovertyrace], and low economic status leads to higher teenage pregnancy rates [@Gold2001]. The contribution of Hispanic women of ages 20 to 24 is less than their teenage counterparts, showing that there is not a large decrease in their birth rates as opposed to white women. They are also more likely to suffer from disproportional poverty. We see that white womens' share of the population from 2000 to 2019 has decreased due to the large decrease in birth rates. However black and hispanic womens' share of the population over this time period has either increased or not changed, likely due to increasing immigration from these two races over the past 20 years.
 
 ```{r, include = FALSE}
 
@@ -291,7 +300,7 @@ table1 %>%
 (Figure \@ref(fig:figsix)) shows the number of births for those aged 15-24 for every from 2000 to 2019, according to the year's unemployment rate. We notice that the graph generally has a decreasing pattern in terms of the average number of births per year in the United States which is in line with what we observed earlier. Between 2004 and 2005, the birth rate for the 15-19 group continued to decrease whereas the birth rate for the 20-24 age group began to increase. We see that the unemployment rate is low in this period. According to [@citecatholic], in 2006, the United States had their highest number of births than in the last 45 years prior, causing a baby boom. However after this, the birth rate began to quickly decline and unemployment rates were high, reaching 8% by 2008 and continuing until 2012. This is likely due to the great recession that occurred during this period, such that it is possible women could not afford bringing new children. The birth rate, while still decreasing for both age groups, becomes less severe from 2012 onward, and we see that unemployment reduces. The initial conclusion made by this is that low unemployment rates are related to a higher number of births and higher unemployment rates are related to a lower number of births. However beyond 2014, despite the low unemployment rate, we see the birth rate continues to decrease. We note that the unemployment rate is more likely to affect women in the 20-24 age group compared to their younger counterparts, as they are more involved in the workforce. 
 
 
-```{r figsix, echo = FALSE, fig.cap = "Average Birth Rates Vs level of Unemployment for the 15 to 19 and 20 to 24 age groups from 2000 to 2020" }
+```{r figsix, out.width="90%", fig.cap = "Average Birth Rates Vs level of Unemployment for the 15 to 19 and 20 to 24 age groups from 2000 to 2020", echo = FALSE}
 
 # grouping by year and policy, and then selecting relevant columns
 pro = group_by(policy, year) %>% select(year, unemp)
@@ -315,7 +324,10 @@ g2024 <- graph %>% ggplot(mapping = aes(x = year, y = brate_2024, color = Unempl
 # putting two figures into one figure space
 grid.arrange(g1519,g2024, nrow =2)
 ```
+
+
 (Figure \@ref(fig:figseven)) shows the percentage decline in birth rates for young women, specifically the the 20-34 age group, by state from 2000 to 2019. We see that throughout the U.S there has been a decline in birth rates in most states, with some states having a more severe decline than others. We see that states on the west coast tend to have a larger decline than states on the east coast, with California having a very high decline in birth rates, and North Dakota having relatively little change. This could be attributed to the west coast being more liberal [@citeleft] and thus less adhering  gender roles, such that women have children later or not at all. In comparison the east coast, midwestern and southern states have less severe changes in their birth rates, with some having no change or a slight increase in birth rates. Coincidentally, these states tend to be more conservative or religious, so they accept gender norms and refusal of new changes in culture. The exception seems to be Utah, which is conservative and religious due to Mormonism but has the largest decline in birth rates. However, the general trend still holds, and as some states are more costly to live in than others, this could also explain the differences. 
+
 
 ```{r, include = FALSE}
 
@@ -360,13 +372,14 @@ mapjoin2000 = mapjoin %>%
   group_by(stname) %>%
   summarize(average = mean(birthrate))
 
-# geting the difference between birthrates between 2000 and 2019
+# getting the difference between birthrates between 2000 and 2019
 mapdiff = left_join(mapjoin2019, mapjoin2000, by="stname") %>%
   mutate(decline = average.x - average.y) %>%
   mutate(fips = fips(stname)) 
 ```
 
-```{r figseven, fig.cap = "Decline in Birth rates for young women from 1999-2000 to 2018-2019 by state"}
+
+```{r figseven, out.width="90%", fig.cap = "Decline in Birth rates for young women from 1999-2000 to 2018-2019 by state", echo = FALSE}
 # plotting the map with change in birthrates for each state
 plot_usmap(data = mapdiff, values = "decline", regions = "states") + 
   scale_fill_continuous(low = "red", high = "green", name = "Change in birth rates (%)", label = scales::comma) +
@@ -374,12 +387,12 @@ plot_usmap(data = mapdiff, values = "decline", regions = "states") +
   theme(legend.position = "right")
 ```
 
-(Table \@ref(fig:tabtwo)) compares average student debt, rent, child costs and the percentage of people that follow a religion in the years 2004 and 2019. The mean student debt is lifetime debt while the mean rent is monthly rent. All these variables are social and economic attributes of the U.S, which may explain the change in birth rates. We see that the average student debt has almost doubled from 2004 to 2019, the mean monthly rent has increased significantly, the percentage of people who believe religion is important has decreased, and the monthly childcare costs have also significantly increased. Millennial women were more religious than their younger counterparts, which may have influenced their decisions to have children relatively young. We notice that these costs have all risen past inflation, indicating that it is now more expensive to live in the U.S in 2019 than it was in the early 2000s. As generation Z mothers want to be more financially comfortable before having children, this causes them to postpone having kids, or not having as many children due to expense. Expensive childcare and lack of affordable living has caused lower fertility rates [@citenargund]. 
+(Table \@ref(tab:tabtwo)) compares average student debt, rent, child costs and the percentage of people that follow a religion in the years 2004 and 2019. The mean student debt is lifetime debt while the mean rent is monthly rent. All these variables are social and economic attributes of the U.S, which may explain the change in birth rates. We see that the average student debt has almost doubled from 2004 to 2019, the mean monthly rent has increased significantly, the percentage of people who believe religion is important has decreased, and the monthly childcare costs have also significantly increased. Millennial women were more religious than their younger counterparts, which may have influenced their decisions to have children relatively young. We notice that these costs have all risen past inflation, indicating that it is now more expensive to live in the U.S in 2019 than it was in the early 2000s. As generation Z mothers want to be more financially comfortable before having children, this causes them to postpone having kids, or not having as many children due to expense. Expensive childcare and lack of affordable living has caused lower fertility rates [@citenargund]. 
 
-```{r tabtwo,echo = FALSE }
+```{r tabtwo, echo = FALSE }
 
 # mean student debt by year
-studentdebt = student_debt %>%
+studentdebttable = student_debt %>%
   group_by(year) %>%
   summarize(meandebt = mean(stud_loan_cap)*10000)
 
@@ -402,12 +415,12 @@ childtable = childcare %>%
   summarize(meanchildcare = mean(coll_c3))
 
 # joining the previous datasets into one and removing unnecessary variables
-explanatory_table = cbind(studentdebt,renttable,religiontable,childtable)
+explanatory_table = cbind(studentdebttable,renttable,religiontable,childtable)
 explanatory = explanatory_table %>%
   select(-c(3,5,7)) 
 
 explanatory %>%
-  knitr::kable(col.names = c("Year","Student Debt", "Rent", "Religious Importance","Child Care Cost"), caption = "Changes in Variables that may Explain Decline in Birth Rates")%>% 
+  knitr::kable(col.names = c("Year","Average Student Debt", "Average Rent", "Percentage of Religious People","Average Child Care Cost"), caption = "Changes in Variables that may Explain Decline in Birth Rates")%>% 
   kable_styling(latex_options = "HOLD_position") 
 ```
 
@@ -449,7 +462,7 @@ A decline in birth rates has led to a decline in population growth and thus the 
 
 ### Race
 
-Women of color such as black and hispanic women are less likely to receive adequate natal care and resources compared to their white counterparts. This has caused the decreased fertility rates and higher negative birth outcomes for black women [@Davis2018], [@Yang2003] which could decrease their number of births and thus their birth rates. Shifts in fertility have disproportionately happened to white women and the higher educated, who also tend to be white [@Yang2003]. Hispanic women also have less than stellar access to fertility health care, as well as have lower IVF success rates [@citeracefertility]. Black people are concentrated in the south, which has very high levels of teenage pregnancy [@citeteen] and low level of resources on sexual education, so they are disproportionately affected. This may be why they did not contribute much to declining birth rates in the report. Black teenagers are also less likely to have access to quality education,careers and outside opportunities[@citeusatrends], which is a major factor to the decline in birth rates. Hispanics are also affected by many of the same problems; lack of funding and proper education in their communities. As birth rates for people of color has not decreased as much as those for white people, it could also perpetuate harmful stereotypes of minority women having too many children, too young, depending on welfare.Black women are also at a higher risk of unwanted pregnancies compared to other populations, as shown by [@Bryant2010], which surveyed women who had recently gotten pregnant and asked questions such as if they intended on getting pregnant. Among the proportion of women who answered no to this question, black women represented 33% of the women not intending for pregnancy. Teenage birth rates have decreased for generation z, however black and hispanic women still have higher teen birth rates compared to white women, and this has persisted even with the cultural change. This is due to lack of opportunities, as well as higher rates of poverty and low education [@Gold2001]. While these problems are due to external problems from lack of funding to these communities, this data does not provide the vital background to dispel systemic biases that black and hispanic women are just lazy and have children on the taxpayer's back.This shows yet another way in which women of color are negatively treated in society.
+Women of color such as black and hispanic women are less likely to receive adequate natal care and resources compared to their white counterparts. This has caused the decreased fertility rates and higher negative birth outcomes for black women [@Davis2018], [@Yang2003] which could decrease their number of births and thus their birth rates. Shifts in fertility have disproportionately happened to white women and the higher educated, who also tend to be white [@Yang2003]. Hispanic women also have less than stellar access to fertility health care, as well as have lower IVF success rates [@citeracefertility]. Black people are concentrated in the south, which has very high levels of teenage pregnancy [@citeteen] and low level of resources on sexual education, so they are disproportionately affected. This may be why they did not contribute much to declining birth rates in the report. Black teenagers are also less likely to have access to quality education,careers and outside opportunities[@citeusatrends], which is a major factor to the decline in birth rates. Hispanics are also affected by many of the same problems; lack of funding and proper education in their communities. As birth rates for people of color has not decreased as much as those for white people, it could also perpetuate harmful stereotypes of minority women having too many children, too young, depending on welfare. Black women are also at a higher risk of unwanted pregnancies compared to other populations, as shown by [@Bryant2010], which surveyed women who had recently gotten pregnant and asked questions such as if they intended on getting pregnant. Among the proportion of women who answered no to this question, black women represented 33% of the women not intending for pregnancy. Teenage birth rates have decreased for generation z, however black and hispanic women still have higher teen birth rates compared to white women, and this has persisted even with the cultural change. This is due to lack of opportunities, as well as higher rates of poverty and low education [@Gold2001]. While these problems are due to external problems from lack of funding to these communities, this data does not provide the vital background to dispel systemic biases that black and hispanic women are just lazy and have children on the taxpayer's back.This shows yet another way in which women of color are negatively treated in society.
 
 
 ## Economic Causes and Impacts of Declining Birth Rates
