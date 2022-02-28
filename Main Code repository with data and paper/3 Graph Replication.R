@@ -1,9 +1,13 @@
 # Loading in datasets
+library("tidyverse")
+library("haven")
 
 birth = read_csv("Inputs/Data/fig_1.csv")
 race = read_csv("Inputs/Data/figs_2a_2b.csv")
-write_csv(birth, "Replication-Birth Rates/birth.csv")
-write_csv(race, "Replication-Birth Rates/race.csv")
+write_csv(birth, "Main Code repository with data and paper/birth.csv")
+write_csv(race, "Main Code repository with data and paper/race.csv")
+birth = read_csv(here::here("Main Code repository with data and paper/birth.csv"))
+race = read_csv(here::here("Main Code repository with data and paper/race.csv"))
 
 # Replication of Figure 1
 birth %>%
