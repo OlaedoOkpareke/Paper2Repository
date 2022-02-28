@@ -2,7 +2,7 @@
 
 This repository can be found at https://github.com/OlaedoOkpareke/Paper2Repository.
 
-First run the rscript file, this creates the datasets.  Then run the bib file for references and citations, then run the rmd file. Finally, run the replication package. 
+First run the rscript file, this creates the datasets.  Then run the bib file for references and citations, then run the rmd file. Finally, run the reproduction package. 
 
 The repository is organised as follows:
 
